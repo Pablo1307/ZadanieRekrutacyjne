@@ -1,0 +1,61 @@
+interface Structure {
+
+            Optional findBlockByColor(String color);
+
+            List findBlocksByMaterial(String material);
+
+            int count();
+        }
+
+        interface Block extends Structure {
+            String getColor();
+            String getMaterial();
+        }
+
+        interface CompositeBlock extends Block {
+            List getBlocks();
+        }
+
+        class Wall implements Structure, CompositeBlock {
+            private List blocks;
+
+            @Override
+            public Optional findBlockByColor(String color) {
+                for (int i = 0; i < blocks.size(); i++) {
+                    if (color.equals(blocks.get(i).getColor())){
+                        return (Optional) blocks.get(i);
+                    }
+                }
+                return Optional.empty();
+            }
+
+            @Override
+            public List findBlocksByMaterial(String material) {
+                for (int i = 0; i < blocks.size(); i++) {
+                    if(material.equals(blocks.get(i).getMaterial())){
+                        return (List) blocks.get(i);
+                    }
+                }
+                return null;
+            }
+
+            @Override
+            public int count() {
+                return blocks.size();
+            }
+
+            @Override
+            public List getBlocks() {
+                return blocks;
+            }
+
+            @Override
+            public String getColor() {
+                return null;
+            }
+
+            @Override
+            public String getMaterial() {
+                return null;
+            }
+        }
